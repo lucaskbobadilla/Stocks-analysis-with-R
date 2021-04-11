@@ -1,0 +1,3 @@
+default:
+  trials: 5
+  dataset: "data-sampled.csv"

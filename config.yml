@@ -1,0 +1,9 @@
+default:
+  cores: 2
+  debug: true
+  server: "localhost:5555"
+   
+production:
+  cores: !expr getOption("mc.cores")
+  debug: !expr Sys.getenv("ENABLE_DEBUG") == "1"
+  server: !expr config::get("server", file = "/etc/server-config.yml")

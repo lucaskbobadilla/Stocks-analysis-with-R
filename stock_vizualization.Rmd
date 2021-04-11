@@ -1,0 +1,65 @@
+---
+title: "Untitled"
+author: "Lucas Kopecky Bobadilla"
+date: "3/31/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+```{r include=FALSE}
+####### packages #########
+library(quantmod)
+library(xts)
+library(rvest)
+library(tidyverse)
+library(stringr)
+library(forcats)
+library(lubridate)
+library(plotly)
+library(dplyr)
+library(PerformanceAnalytics)
+library(forecast)
+library(tseries)
+library(timeSeries)
+library(fGarch)
+##### get symbols #######
+
+symbols <- c('DIS','V', 'SPY','APHA','MA', 
+             'NVDA', "NKE", 'SNE', 'VOO','AAPL','BAC', 'HD',
+             'WMT', 'MSFT', 'TSLA','JNJ', 'VT')
+
+for ( symbol in symbols){
+  getSymbols(symbol,from="2015-03-01",to="2021-03-22")
+}
+closePrices <- do.call(merge, lapply(symbols, function(x) Cl(get(x))))
+```
+
+
+```{r}
+library(dygraphs)
+lungDeaths <- cbind(mdeaths, fdeaths)
+dygraph(closePrices) %>% 
+  dyRangeSelector(height = 20)  %>%
+  dyHighlight(highlightCircleSize = 5, 
+              highlightSeriesBackgroundAlpha = 0.2,
+              hideOnMouseOut = FALSE)
+
+```
+
+```{r}
+
+library(xts)
+data(sample_matrix)
+stock <- TSLA
+colnames(stock) <- c("Open", "High", "Low", "Close", "Volume", "Adjusted")
+stock <- stock[,1:4]
+dygraph(stock) %>%
+  dyCandlestick() %>% 
+  dyRangeSelector(height = 20)
+```
+
