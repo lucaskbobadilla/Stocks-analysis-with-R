@@ -95,7 +95,7 @@ company <-  var_overview %>%
   as.character()
 
 #news API Query
-google_api = "3860b028d28f4d1c9b3b41f2c12ebc54"
+google_api = "" # place key here
 url_news = paste0("https://newsapi.org/v2/everything?q=",
                   str_replace_all(company,pattern = " Inc.", replacement = ""),
                   "&from=",today()-ddays(27), #last 30 days
